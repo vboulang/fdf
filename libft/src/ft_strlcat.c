@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 12:39:05 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:16:56 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:06 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		return (ft_strlen(src) + dstsize);
 	return (len + ft_strlen(src));
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int main()
-{
-	char str[60] = "Hello";
-	char str2[7] = "Tortue";
-	char str3[60] = "Hello";
-	char str4[7] = "Tortue";
-	printf("%lu %u %s %s\n", strlcat(str, str2, 1), 
-	ft_strlcat(str3, str4, 1), str, str3);
-}*/

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:25:20 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:12 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:04:40 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,3 @@ t_list	*ft_lstnew(void *content)
 	lst->next = NULL;
 	return (lst);
 }
-/*
-#include <stdio.h>
-
-int	main()
-{
-	t_list *lst;
-	char	*l="65";
-
-	lst = ft_lstnew(l);
-	printf("%s\n", lst->content);
-}*/

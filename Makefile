@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/19 14:56:28 by vboulang         ###   ########.fr        #
+#    Updated: 2024/01/19 14:58:46 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJDIR			=	obj
 LIBFT		=	$(LIBDIR)/libft.a
 
 #.h files name
-INC			=	$(INCDIR)/push_swap.h
+INC			=	$(INCDIR)/fdf.h
 
 #Command lines
 RM			=	rm -rf
@@ -35,10 +35,8 @@ MK			=	mkdir -p
 
 #Source files
 
-SRC			= 	push_swap.c \
-				moves_s_p.c \
-				moves_rr.c	\
-				moves_r.c	
+SRC			= 	main.c \
+				parsing.c 
 
 VPATH		=	$(SRCDIR)
 

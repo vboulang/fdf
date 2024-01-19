@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:56:58 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:25 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:04:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(int ac, char **av)
-{
-	if (ac == 3)
-		printf("%d %d\n", memcmp(av[1], av[2], 3), ft_memcmp(av[1], av[2], 3));
-}*/

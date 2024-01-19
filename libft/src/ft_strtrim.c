@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 11:16:21 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:17:26 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:02:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	ft_strlcpy(trimmed, s1 + start, last - start + 2);
 	return (trimmed);
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	char s1[20] = "gggjjjgjjgjgjgj";
-	char	set[3] = "gj";
-	printf("%s\n", ft_strtrim(s1, set));
-}*/

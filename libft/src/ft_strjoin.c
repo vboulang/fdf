@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 10:22:21 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:16:52 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:13 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		newstr[i++] = s2[j++];
 	return (newstr);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	char str1[1] = "";
-	char str2[1] = "";
-	printf("%s\n", ft_strjoin(str1, str2));
-}*/

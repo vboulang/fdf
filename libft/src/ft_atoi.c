@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:58:17 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:14:16 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:05:46 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-/*
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(int ac, char **av)
-{
-	if (ac == 2)
-	{
-		printf("%d %d\n", atoi("\n\f\t    -12563TFhj4565"), atoi(av[1]));
-		printf("%d %d\n", ft_atoi("\n\f\t    -12563TFhj4565"), ft_atoi(av[1]));
-	}
-}*/

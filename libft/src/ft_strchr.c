@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:25:48 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:16:40 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:31 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,3 @@ char	*ft_strchr(const char *s, int c)
 		return (str);
 	return (NULL);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(int ac, char **av)
-{
-	int c = 'h';
-	if (ac == 2)
-	{
-		printf("%s\n%s\n", strchr(av[1], c), ft_strchr(av[1], c));
-	}
-}*/

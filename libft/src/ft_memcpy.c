@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:22:05 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:29 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:04:21 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int main()
-{
-	//char dst[10] = "ABcdEFtgy";
-	//char dst2[10] = "ABcdEFtgy";
-	char src[10] = "Turtle !!";
-	//char src[1] = "";
-	//char dst[1] = "";
-	//char dst2[1] = "";
-	//unsigned int len = 9;
-	
-	//printf("len: %d\n%s\n%s\n", len, memcpy(dst, src, len), 
-	//ft_memcpy(dst2, src, len));
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 11:32:29 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:20 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:04:31 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main()
-{
-	int n = 5;
-	int c = 't';
-	printf("%s\n%s\n", memchr((void *)"H", c, n), ft_memchr((void *)0, c, n));
-}*/

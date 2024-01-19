@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:50:30 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:43 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:55 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,3 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 	write(fd, "\n", 1);
 }
-/*
-int main()
-{
-	char s[10] = "hamster 1";
-	char t[10] = "hamster 2";
-
-	ft_putendl_fd(s, 1);
-	ft_putendl_fd(t, 2);
-}*/

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 12:24:10 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:14:39 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:05:22 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,3 @@ char	*ft_itoa(int n)
 		str[++len] = '-';
 	return (str);
 }
-/*
-#include <stdio.h>
-#include <limits.h>
-
-int	main()
-{
-	printf("%s\n%s\n%s\n", ft_itoa(0), ft_itoa(-15), ft_itoa(INT_MIN));
-}*/

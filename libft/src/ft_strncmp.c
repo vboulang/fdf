@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:24:12 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:17:16 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:02:47 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(int ac, char **av)
-{
-	if (ac == 3)
-		printf("%d %d\n", strncmp(av[1], av[2], 5), ft_strncmp(av[1], av[2], 5));
-	// else
-	// 	printf("%d\n", strncmp((void *)0, "av", 1));
-}*/

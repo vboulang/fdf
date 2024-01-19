@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 17:02:33 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:16:32 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:40 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,3 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (strs);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	**strs;
-//	char	str1[42] = "Je suis une tortue qui mange des ramens!!";
-//	char	str2[42] = "                                         ";
-//	char	str3[42] = "   Je suis     une    tortue des ramens  ";
-	char	str4[42] = "\0                                  tortue";
-	char	c = '\0';
-	int		i = 0;
-
-	strs = ft_split(str4, c);
-	while (strs[i])
-	{
-		printf("%s\n", strs[i]);
-		i++;
-	}
-	if(strs[i] == NULL)
-		printf("%s\n", strs[i]);
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}*/

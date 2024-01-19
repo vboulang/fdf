@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:29:08 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:15:46 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:50 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,3 @@ void	ft_putnbr_fd(int n, int fd)
 	reste = reste + 48;
 	write(fd, &reste, 1);
 }
-/*
-int main()
-{
-	ft_putnbr_fd(123456, 1);
-	ft_putnbr_fd(-654321, 2);
-}*/

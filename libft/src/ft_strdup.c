@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:41 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:16:48 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:25 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,3 @@ char	*ft_strdup(char *src)
 	str = ft_strcpy(str, src);
 	return (str);
 }
-
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char str[10] = "Hello!";
-	char *str2 = NULL;
-
-	printf("Before: %s\n", str2);
-	str2 = ft_strdup(str);
-	printf("After: %s\n", str2);
-}*/

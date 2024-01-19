@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:05:22 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/05 14:27:31 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:55:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_to_return(char *str, char *reste)
 	return (to_return);
 }
 
-char	*initialize(char *buff)
+char	*initialize_gnl(char *buff)
 {
 	char		*new_string;
 
@@ -99,7 +99,7 @@ char	*get_next_line(int fd)
 		ft_bzero(buff, BUFFER_SIZE + 1);
 		return (NULL);
 	}
-	new_string = initialize(buff);
+	new_string = initialize_gnl(buff);
 	if (!new_string)
 		return (NULL);
 	check = ft_strchr(new_string, '\n');

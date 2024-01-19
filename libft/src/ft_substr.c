@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:57 by vboulang          #+#    #+#             */
-/*   Updated: 2023/12/20 14:17:30 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:02:34 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);
 }
-/*
-#include <stdio.h>
-
-int main()
-{
-	char str[20] = "Je suis une tortue.";
-	printf("%s\n", ft_substr("", 0, 0));
-	printf("%s\n", ft_substr(str, 3, 4));
-	printf("%s\n", ft_substr(str, 8, 11));
-	printf("%s\n", ft_substr(str, 12, 7));
-}*/

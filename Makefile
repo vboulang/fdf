@@ -6,12 +6,12 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/16 16:43:06 by vboulang         ###   ########.fr        #
+#    Updated: 2024/01/19 14:56:28 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Program names
-NAME		=	push_swap
+NAME		=	fdf
 
 #Compiling variables
 CC			=	gcc

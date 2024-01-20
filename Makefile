@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/19 14:58:46 by vboulang         ###   ########.fr        #
+#    Updated: 2024/01/20 15:03:07 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	fdf
 
 #Compiling variables
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 #Directories
 LIBDIR			=	libft

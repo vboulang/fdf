@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/19 18:19:18 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:37:47 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,30 @@
 
 void	load_map(t_map *map, int line_count, int col_count)
 {
-	int array[line_count][col_count];
-	int	i;
-	int	j;
-
+	int		i;
+	int		j;
+	int 	fd;
+	t_point	**point;
+	
 	i = 0;
 	map->height = line_count;
 	map->wide = col_count;
+	point = ft_calloc((line_count + 1), sizeof(t_point *));
 	while(i < line_count)
 	{
-		j = 0;
-		while(j < col_count)
-		{
-			array[i][j] = 0;
-			j++;
-		}
+		point[i] = ft_calloc(col_count, sizeof(t_point));
 		i++;
 	}
-	map->map = array;
+	map->point = point;
+	i = 0;
+	j = 0;
+	fd = open(map->filename, O_RDONLY);
+	if (fd == -1)
+	{
+		perror("File couldn't be opened.");
+		exit(EXIT_FAILURE);
+	}
+	//fill points with coor , color 
 }
 
 void	free_and_null(char *str)
@@ -95,27 +101,4 @@ void	get_map_size(char *file, t_map *map)
 	close(fd);
 	load_map(map, line_count, col_count);
 	free_and_null(line);
-}
-
-void	get_info(char *file)
-{
-	char	**splitted_line;
-	int		fd;
-	char	*line;
-
-	(void)splitted_line;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("File couldn't be opened.");
-		exit(EXIT_FAILURE);
-	}
-	line = get_next_line(fd);
-	while (line)
-	{
-		//TODO how to stock each line? struct? int table? 
-		//TODO extract color information if I want...
-		line = get_next_line(fd); //free avant?
-	}
-	close(fd);
 }

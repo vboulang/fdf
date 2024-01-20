@@ -6,17 +6,18 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/19 18:19:00 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:34:21 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	initialize(t_map *map)
+void	initialize_map(t_map *map, char *str)
 {
 	map->height = 0;
 	map->wide = 0;
-	map->map = NULL;
+	map->point = NULL;
+	map->filename = str;
 }
 
 int	main(int argc, char **argv)
@@ -25,9 +26,9 @@ int	main(int argc, char **argv)
 	
 	if (argc == 2)
 	{
-		//initialize(&map);
+		initialize_map(&map, argv[1]);
 		get_map_size(argv[1], &map);
-		get_info(argv[1]);
+
 		//TODO execute some mlx magic
 	}
 	else

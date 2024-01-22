@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/20 15:34:29 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:02:45 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_point
 {
 	int		x;
+	int		z;
 	int		y;
 	long	color; //check type in MLX
 }	t_point;
@@ -45,5 +46,6 @@ void	load_map(t_map *map, int line_count, int col_count);
 
 void	free_all(char **strs);
 void	free_and_null(char *str);
+void	free_all_map(t_point **point);
 
 #endif

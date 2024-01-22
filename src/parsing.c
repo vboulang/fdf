@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/22 16:08:11 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:30:36 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	load_map(t_map *map, int line_count, int col_count)
 			j++;
 		}
 		i++;
-	}
+	} ////////WRITE A FUNCTION TO PRINT EVERY MAP POINT
 	free(line);
 	free_all(splitted_line);
 	if(carac)

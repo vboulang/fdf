@@ -6,22 +6,109 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/22 16:30:36 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:21:28 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	load_map(t_map *map, int line_count, int col_count)
+//DO NOT KEEP?
+void	printf_map(t_map *map)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->wide)
+		{
+			printf("%d ", map->point[i][j].y);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("\n\n\n\n");
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->wide)
+		{
+			printf("%s ", map->point[i][j].color);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
+t_point	create_point(int i, int j, char **splitted_line)
+{
+	char	**carac;
+	t_point	pt;
+	
+	pt.x = i;
+	pt.z = j;
+	if (ft_strchr(splitted_line[j], ','))
+	{
+		carac = ft_split(splitted_line[j], ',');
+		if (!carac)
+			exit(EXIT_FAILURE); ///
+		pt.y = ft_atoi(carac[0]);
+		pt.color = carac[1]; //TO CHECK IF int IS THE RIGHT TYPE ft_atoi(carac[1])
+		if(carac)
+			free_all(carac);
+	}
+	else
+	{
+		pt.y = ft_atoi(splitted_line[j]); 
+		pt.color = ""; //DEFAULT COLOR??
+	}
+	return (pt);
+}
+
+void	fill_map(t_map *map)
+{
+	int		fd;
 	int		i;
 	int		j;
-	int 	fd;
 	char	*line;
-	t_point	**point;
-	t_point	pt;
 	char	**splitted_line;
-	char	**carac;
+	
+	fd = open(map->filename, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("File couldn't be opened.");
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while(i < map->height)
+	{
+		line = ft_strtrim(get_next_line(fd), "\n");
+		splitted_line = ft_split(line, ' ');
+		j = 0;
+		while(j < map->wide)
+		{
+			map->point[i][j] = create_point(i, j, splitted_line);
+			printf("0:  -%d-  1:  -%s-", map->point[i][j].y, map->point[i][j].color);
+			j++;
+		}
+		i++;
+	}
+	if (line)
+		free(line);
+	if(splitted_line)
+		free_all(splitted_line);
+	close(fd);
+}
+
+void	create_map(t_map *map, int line_count, int col_count)
+{
+	int		i;
+	t_point	**point;
 	
 	i = 0;
 	map->height = line_count;
@@ -34,7 +121,7 @@ void	load_map(t_map *map, int line_count, int col_count)
 	}
 	while(i < line_count)
 	{
-		point[i] = ft_calloc(col_count, sizeof(t_point));
+		point[i] = ft_calloc((col_count + 1), sizeof(t_point));
 		if(!point)
 		{
 			printf("Couldn't load map point");
@@ -44,39 +131,9 @@ void	load_map(t_map *map, int line_count, int col_count)
 		i++;
 	}
 	map->point = point;
-	fd = open(map->filename, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("File couldn't be opened.");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	while(i < map->height)
-	{
-		line = get_next_line(fd);
-		splitted_line = ft_split(line, ' ');
-		j = 0;
-		while(j < map->wide)
-		{
-			pt.x = i;
-			pt.z = j;
-			if (ft_strchr(splitted_line[j], ','))
-			{
-				carac = ft_split(splitted_line[j], ',');
-				pt.y = ft_atoi(carac[0]);
-				pt.color = ft_atoi(carac[1]); //TO CHECK IF int IS THE RIGHT TYPE
-			}
-			else
-				pt.y = ft_atoi(splitted_line[j]); //DEFAULT COLOR??
-			j++;
-		}
-		i++;
-	} ////////WRITE A FUNCTION TO PRINT EVERY MAP POINT
-	free(line);
-	free_all(splitted_line);
-	if(carac)
-		free_all(carac);
-	close(fd);
+	fill_map(map);
+	printf_map(map); ///////
+	// FREE_MAP FUNCTION
 }
 
 void	free_and_null(char *str)
@@ -147,7 +204,7 @@ void	get_map_size(char *file, t_map *map)
 		perror("File couldn't be opened.");
 		exit(EXIT_FAILURE);
 	}
-	line = get_next_line(fd);
+	line = ft_strtrim(get_next_line(fd), "\n");
 	if(line)
 		col_count = get_col_nb(line);
 	while (line)
@@ -157,6 +214,6 @@ void	get_map_size(char *file, t_map *map)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	load_map(map, line_count, col_count);
+	create_map(map, line_count, col_count);
 	free_and_null(line);
 }

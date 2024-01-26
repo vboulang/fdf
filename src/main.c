@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/25 17:49:59 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:46:45 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	main(int argc, char **argv)
 		// 	j = 250;
 		// 	while(j < 750)
 		// 	{
-		// 		mlx_put_pixel(img, i, j, 0x000420FF);
+		// 		mlx_put_pixel(img, i, j, 0x004200FF);
 		// 		j++;
 		// 	}
 		// 	i++;
 		// }
-		mlx_put_pixel(img, 250, 250, 0x000420FF);
+		mlx_put_pixel(img, 250, 250, 0x004200FF);
 
 		all_hooks(&map);
 		mlx_loop(map.mlx);

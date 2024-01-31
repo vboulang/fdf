@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/25 14:01:00 by vboulang         ###   ########.fr        #
+#    Updated: 2024/01/31 15:30:00 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ VPATH		=	$(SRCDIR)
 OBJ			=	$(addprefix $(OBJDIR)/,$(SRC:%.c=%.o))
 
 #MLX
-MLXFLAGS	=	-framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" 
+MLXFLAGS	=	-framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib/" #Place line if brew42 or not 42
 MLXDIR		=	MLX42
 MLX			=	$(MLXDIR)/build/libmlx42.a
 MLXINC		=	$(MLXDIR)/include
@@ -63,6 +63,7 @@ $(OBJDIR):
 	$(MK) $(OBJDIR)
 
 libmlx:
+# git clone https://github.com/codam-coding-college/MLX42.git
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4
 
 clean:

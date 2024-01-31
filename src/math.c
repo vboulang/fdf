@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/26 14:48:52 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:51:34 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ OR
 x'=(x-z)/sqrt(2)
 y'=(x+2y+z)/sqrt(6)
 
+
+commencer par mettre en cood et regarder s<il faut deplacer la map pour 
+quelle soit centr/e
+Aurelia ajoute un offset (deplaceent en x et en y) a ses coordonnees 
+isometrique. A voir s<il pourrait y avoir une regle
 */
 
 double	isometric_conversion(t_point point)

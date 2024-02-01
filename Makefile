@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/31 15:30:00 by vboulang         ###   ########.fr        #
+#    Updated: 2024/02/01 16:44:51 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	fdf
 
 #Compiling variables
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 #Directories
 LIBDIR		=	libft
@@ -37,7 +37,9 @@ MK			=	mkdir -p
 
 SRC			= 	main.c \
 				parsing.c \
-				hooks.c
+				hooks.c \
+				math.c 
+#seb.c
 
 VPATH		=	$(SRCDIR)
 
@@ -50,7 +52,7 @@ MLXDIR		=	MLX42
 MLX			=	$(MLXDIR)/build/libmlx42.a
 MLXINC		=	$(MLXDIR)/include
 
-all: libmlx $(NAME)
+all:  libmlx $(NAME) #deps
 
 $(NAME):	$(OBJDIR) $(OBJ)
 	make -C $(LIBDIR)
@@ -62,8 +64,18 @@ $(OBJDIR)/%.o: %.c $(INC)
 $(OBJDIR):
 	$(MK) $(OBJDIR)
 
+# deps:
+# 	@if [ ! -f /Users/$(USER)/.brew/bin/brew ]; then \
+# 		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+# 	fi
+# 	@if ! brew list | grep -q "cmake"; then \
+# 		brew install cmake; \
+# 	fi
+# 	@if ! brew list | grep -q "glfw"; then \
+# 		brew install glfw; \
+# 	fi
+	
 libmlx:
-# git clone https://github.com/codam-coding-college/MLX42.git
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4
 
 clean:

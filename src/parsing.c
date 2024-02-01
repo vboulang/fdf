@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/25 14:25:05 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:54:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	printf_map(t_map *map)
 		j = 0;
 		while (j < map->wide)
 		{
-			printf("%s ", map->point[i][j].color);
+			printf("u: %f v: %f   ",
+				map->point[i][j].isox, map->point[i][j].isoy);
 			j++;
 		}
 		printf("\n");
@@ -49,7 +50,7 @@ t_point	create_point(int i, int j, char **splitted_line)
 {
 	char	**carac;
 	t_point	pt;
-	
+
 	pt.x = i;
 	pt.y = j;
 	if (ft_strchr(splitted_line[j], ','))
@@ -62,9 +63,10 @@ t_point	create_point(int i, int j, char **splitted_line)
 	}
 	else
 	{
-		pt.z = ft_atoi(splitted_line[j]); 
+		pt.z = ft_atoi(splitted_line[j]);
 		pt.color = ""; //DEFAULT COLOR??
 	}
+	isometric_conversion(&pt);
 	return (pt);
 }
 
@@ -75,7 +77,7 @@ void	fill_map(t_map *map)
 	int		j;
 	char	*line;
 	char	**splitted_line;
-	
+
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1)
 	{
@@ -83,12 +85,12 @@ void	fill_map(t_map *map)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	while(i < map->height)
+	while (i < map->height)
 	{
 		line = ft_strtrim(get_next_line(fd), "\n");
 		splitted_line = ft_split(line, ' ');
 		j = 0;
-		while(j < map->wide)
+		while (j < map->wide)
 		{
 			map->point[i][j] = create_point(i, j, splitted_line);
 			j++;
@@ -97,7 +99,7 @@ void	fill_map(t_map *map)
 	}
 	if (line)
 		free(line);
-	if(splitted_line)
+	if (splitted_line)
 		free_all(splitted_line);
 	close(fd);
 }
@@ -106,20 +108,20 @@ void	create_map(t_map *map, int line_count, int col_count)
 {
 	int		i;
 	t_point	**point;
-	
+
 	i = 0;
 	map->height = line_count;
 	map->wide = col_count;
 	point = ft_calloc((line_count + 1), sizeof(t_point *));
-	if(!point)
+	if (!point)
 	{
 		printf("Couldn't load map");
 		exit(EXIT_FAILURE);
 	}
-	while(i < line_count)
+	while (i < line_count)
 	{
 		point[i] = ft_calloc((col_count + 1), sizeof(t_point));
-		if(!point)
+		if (!point)
 		{
 			printf("Couldn't load map point");
 			free_all_map(point);
@@ -144,10 +146,10 @@ void	free_all_map(t_point **point)
 	int	i;
 
 	i = 0;
-	while(point[i])
+	while (point[i])
 		i++;
 	i--;
-	while(i >= 0)
+	while (i >= 0)
 	{
 		free(point[i]);
 		point[i] = NULL;
@@ -162,10 +164,10 @@ void	free_all(char **strs)
 	int	i;
 
 	i = 0;
-	while(strs[i])
+	while (strs[i])
 		i++;
 	i--;
-	while(i >= 0)
+	while (i >= 0)
 	{
 		free_and_null(strs[i]);
 		i--;
@@ -178,10 +180,10 @@ int	get_col_nb(char *line)
 {
 	char	**splitted_line;
 	int		i;
-	
+
 	splitted_line = ft_split(line, ' ');
 	i = 0;
-	while(splitted_line[i])
+	while (splitted_line[i])
 		i++;
 	free_all(splitted_line);
 	return (i);
@@ -193,7 +195,7 @@ void	get_map_size(char *file, t_map *map)
 	int		fd;
 	int		line_count;
 	int		col_count;
-	
+
 	line_count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -202,7 +204,7 @@ void	get_map_size(char *file, t_map *map)
 		exit(EXIT_FAILURE);
 	}
 	line = ft_strtrim(get_next_line(fd), "\n");
-	if(line)
+	if (line)
 		col_count = get_col_nb(line);
 	while (line)
 	{

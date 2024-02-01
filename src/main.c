@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/26 17:46:45 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:04:40 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,28 @@ int	main(int argc, char **argv)
 {
 	t_map		map;
 	mlx_image_t	*img;
-	
+
 	if (argc == 2)
 	{
 		initialize_map(&map, argv[1]);
 		get_map_size(argv[1], &map);
-		img = mlx_new_image(map.mlx, 1000, 1000);
-		//IF ERROR
+		img = mlx_new_image(map.mlx, 1000, 1000); //IF ERROR DO SOMETHING
 		ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-   		mlx_image_to_window(map.mlx, img, 0, 0);
-		// int i;
-		// int j;
-		// i = 250;
-		// while(i < 750)
-		// {
-		// 	j = 250;
-		// 	while(j < 750)
-		// 	{
-		// 		mlx_put_pixel(img, i, j, 0x004200FF);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
+		mlx_image_to_window(map.mlx, img, 0, 0);
+		int i;
+		int j;
+		i = 250;
+		while (i < 750)
+		{
+			j = 250;
+			while (j < 750)
+			{
+				mlx_put_pixel(img, i, j, 0x004200FF);
+				j++;
+			}
+			i++;
+		}
 		mlx_put_pixel(img, 250, 250, 0x004200FF);
-
 		all_hooks(&map);
 		mlx_loop(map.mlx);
 		mlx_terminate(map.mlx);

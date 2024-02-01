@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/25 17:40:45 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:41:14 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_map
 	int		wide;
 	char	*filename;
 	t_point	**point;
-	mlx_t *mlx;
+	mlx_t	*mlx;
 }	t_map;
 
 int		main(int argc, char **argv);
@@ -55,5 +55,7 @@ void	printf_map(t_map *map);
 
 void	close_esc(void *param);
 void	all_hooks(t_map *map);
+
+void	isometric_conversion(t_point *point);
 
 #endif

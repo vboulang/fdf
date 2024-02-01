@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/01 11:54:12 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:02:23 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,17 @@ Aurelia ajoute un offset (deplaceent en x et en y) a ses coordonnees
 isometrique. A voir s'il pourrait y avoir une regle REGLE: ratio 2:1
 */
 
-double	isometric_conversion(t_point point)
+void	isometric_conversion(t_point *point)
 {
 	double	u;
 	double	v;
 
-	u = (point.x * cos(STARTING_ANGLE)) + () + ();
+	u = (point->x * cos(45 * M_PI / 180)) - (point->y * sin(45 * M_PI / 180));
+	v = (point->x * sin(30 * M_PI / 180) * sin(45 * M_PI / 180))
+		+ (point->y * cos(30 * M_PI / 180))
+		+ (point->z * sin(asin(tan(30 * M_PI / 180))) * cos(45));
+	point->isox = ceil(u);
+	point->isoy = ceil(v);
 }
 
 // double	bresenham(void)

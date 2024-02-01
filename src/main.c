@@ -6,10 +6,11 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/01 17:04:40 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:33:12 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// https://pikuma.com/blog/isometric-projection-in-games
 #include "../inc/fdf.h"
 
 void	initialize_map(t_map *map, char *str)

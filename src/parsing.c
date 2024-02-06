@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/01 16:54:27 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:12:40 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	printf_map(t_map *map)
 	while (i < map->height)
 	{
 		j = 0;
-		while (j < map->wide)
+		while (j < map->width)
 		{
 			printf("%d ", map->point[i][j].z);
 			j++;
@@ -35,9 +35,9 @@ void	printf_map(t_map *map)
 	while (i < map->height)
 	{
 		j = 0;
-		while (j < map->wide)
+		while (j < map->width)
 		{
-			printf("u: %f v: %f   ",
+			printf("u: %0.3f v: %0.3f   ",
 				map->point[i][j].isox, map->point[i][j].isoy);
 			j++;
 		}
@@ -90,7 +90,7 @@ void	fill_map(t_map *map)
 		line = ft_strtrim(get_next_line(fd), "\n");
 		splitted_line = ft_split(line, ' ');
 		j = 0;
-		while (j < map->wide)
+		while (j < map->width)
 		{
 			map->point[i][j] = create_point(i, j, splitted_line);
 			j++;
@@ -111,7 +111,9 @@ void	create_map(t_map *map, int line_count, int col_count)
 
 	i = 0;
 	map->height = line_count;
-	map->wide = col_count;
+	map->width = col_count;
+	map->window_height = map->height * 40;
+	map->window_width = map->width * 50;
 	point = ft_calloc((line_count + 1), sizeof(t_point *));
 	if (!point)
 	{
@@ -131,7 +133,7 @@ void	create_map(t_map *map, int line_count, int col_count)
 	}
 	map->point = point;
 	fill_map(map);
-	printf_map(map); ///////
+	//printf_map(map); ///////
 	// FREE_MAP FUNCTION
 }
 

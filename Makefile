@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/02/01 16:44:51 by vboulang         ###   ########.fr        #
+#    Updated: 2024/02/02 15:39:05 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,15 +65,15 @@ $(OBJDIR):
 	$(MK) $(OBJDIR)
 
 # deps:
-# 	@if [ ! -f /Users/$(USER)/.brew/bin/brew ]; then \
-# 		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-# 	fi
-# 	@if ! brew list | grep -q "cmake"; then \
-# 		brew install cmake; \
-# 	fi
-# 	@if ! brew list | grep -q "glfw"; then \
-# 		brew install glfw; \
-# 	fi
+	@if [ ! -f /Users/$(USER)/.brew/bin/brew ]; then \
+		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	fi
+	@if ! brew list | grep -q "cmake"; then \
+		brew install cmake; \
+	fi
+	@if ! brew list | grep -q "glfw"; then \
+		brew install glfw; \
+	fi
 	
 libmlx:
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4

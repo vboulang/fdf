@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/01 16:41:14 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:23:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef struct s_point
 typedef struct s_map
 {
 	int		height;
-	int		wide;
+	int		width;
+	int		window_height;
+	int		window_width;
 	char	*filename;
 	t_point	**point;
 	mlx_t	*mlx;

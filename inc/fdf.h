@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/02 13:23:27 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:39:53 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_point
 	int		z;
 	double	isox;
 	double	isoy;
-	char	*color; //check type in MLX
+	u_int32_t	color; //check type in MLX
 }	t_point;
 
 typedef struct s_map

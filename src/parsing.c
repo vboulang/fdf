@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/02 15:12:40 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:30:59 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ t_point	create_point(int i, int j, char **splitted_line)
 		if (!carac)
 			exit(EXIT_FAILURE); ///
 		pt.z = ft_atoi(carac[0]);
-		pt.color = carac[1]; //TO CHECK IF int IS THE RIGHT TYPE ft_atoi(carac[1])
+		pt.color = (uint32_t)carac[1]; //TO CHECK IF int IS THE RIGHT TYPE ft_atoi(carac[1])
 	}
 	else
 	{
 		pt.z = ft_atoi(splitted_line[j]);
-		pt.color = ""; //DEFAULT COLOR??
+		pt.color = 0xFFFFFFFF;
 	}
 	isometric_conversion(&pt);
 	return (pt);

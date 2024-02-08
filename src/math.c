@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/01 17:02:23 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:26:26 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ y'=(x+2y+z)/sqrt(6)
 commencer par mettre en cood et regarder s<il faut deplacer la map pour 
 quelle soit centr/e
 Aurelia ajoute un offset (deplaceent en x et en y) a ses coordonnees 
-isometrique. A voir s'il pourrait y avoir une regle REGLE: ratio 2:1
+isometrique. A voir s'il pourrait y avoir une regle
 */
 
 void	isometric_conversion(t_point *point)

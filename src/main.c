@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/07 15:52:42 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:13:54 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fill_background(t_map *map, mlx_image_t *img)
 		j = 0;
 		while (j < map->window_width)
 		{
-			mlx_put_pixel(img, j, i, 0x00000000);
+			mlx_put_pixel(img, j, i, 0x000000FF);
 			j++;
 		}
 		i++;
@@ -66,14 +66,15 @@ int	main(int argc, char **argv)
 		mlx_image_to_window(map.mlx, img, 0, 0);
 		fill_background(&map, img);
 		y = 0;
+		//dprintf(2, "%d %d\n", map.width, map.height);
 		while (y < map.height)
 		{
 			x = 0;
 			while (x < map.width)
 			{
-				//dprintf(2, "%d %d\t %f, %f\t %f %f\n", i, j, map.point[i][j].isox, map.point[i][j].isoy, map.point[i][j].isox + map.window_width/2, map.window_height/2 + map.point[i][j].isoy);
-				if(((map.point[y][x].isox) + map.window_width/2 < map.window_width) && (map.window_height/4 + (map.point[y][x].isoy) < map.window_height))
-					mlx_put_pixel(img, (map.point[y][x].isox) + map.window_width/2, map.window_height/4 + (map.point[y][x].isoy), map.point[y][x].color);
+				if(((map.point[y][x].isox) + map.window_width/2 < map.window_width) && (map.window_height/4 + (map.point[y][x].isoy) < map.window_height)
+					&& ((map.point[y][x].isox) + map.window_width/2 > 0) && (map.window_height/4 + (map.point[y][x].isoy) > 0))
+				mlx_put_pixel(img, (map.point[y][x].isox) + map.window_width/2, map.window_height/4 + (map.point[y][x].isoy), map.point[y][x].color);
 				x++;
 			}
 			y++;

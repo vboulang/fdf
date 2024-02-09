@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:39:24 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/19 17:55:06 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:59:38 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ char	*ft_to_return(char *str, char *reste);
 int		read_one_line(char **check, int fd, char **new_string, char *buff);
 char	*initialize_gnl(char *buff);
 char	*check_size_read(int size_read,	char **new_string);
+
 #endif

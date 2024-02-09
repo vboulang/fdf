@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 10:38:43 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/05 14:25:05 by vboulang         ###   ########.fr        #
+#    Updated: 2024/02/09 12:57:36 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC = \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	ft_strjoin_gnl.c \
-	get_next_line.c
+	get_next_line.c 
 
 #Source files for bonus
 SRC_BONUS = \

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/07 15:39:53 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:59:31 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void	close_esc(void *param);
 void	all_hooks(t_map *map);
 
 void	isometric_conversion(t_point *point);
-
+uint32_t	ft_htoi_base(const char *str, char *base);
 #endif

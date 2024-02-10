@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/09 12:59:31 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:50:30 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "../libft/inc/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
+typedef struct s_map t_map;
+
 typedef struct s_point
 {
 	int		x;
@@ -28,6 +30,7 @@ typedef struct s_point
 	int		z;
 	double	isox;
 	double	isoy;
+	t_map	*map;
 	u_int32_t	color; //check type in MLX
 }	t_point;
 
@@ -59,5 +62,6 @@ void	close_esc(void *param);
 void	all_hooks(t_map *map);
 
 void	isometric_conversion(t_point *point);
+void	draw_line(mlx_image_t *img, t_point *point, t_point *next);
 uint32_t	ft_htoi_base(const char *str, char *base);
 #endif

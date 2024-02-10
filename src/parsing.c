@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/09 17:14:04 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/10 15:27:15 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,45 @@
 //DO NOT KEEP?
 void	printf_map(t_map *map)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		x = 0;
+		while (x < map->width)
 		{
-			printf("%d ", map->point[i][j].z);
-			j++;
+			printf("%d ", map->point[y][x].z);
+			x++;
 		}
 		printf("\n");
-		i++;
+		y++;
 	}
 	printf("\n\n\n\n");
-	i = 0;
-	while (i < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		x = 0;
+		while (x < map->width)
 		{
-			printf("u: %0.3f v: %0.3f   ",
-				map->point[i][j].isox, map->point[i][j].isoy);
-			j++;
+			printf("u: %0.0f v: %0.0f ",
+				map->point[y][x].isox, map->point[y][x].isoy);
+			x++;
 		}
 		printf("\n");
-		i++;
+		y++;
 	}
 }
 
-t_point	create_point(int i, int j, char **splitted_line)
+t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 {
 	char	**carac;
 	t_point	pt;
 
 	pt.x = i;
 	pt.y = j;
+	pt.map = map;
 	if (ft_strchr(splitted_line[j], ','))
 	{
 		carac = ft_split(splitted_line[j], ',');
@@ -92,7 +93,7 @@ void	fill_map(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			map->point[i][j] = create_point(i, j, splitted_line);
+			map->point[i][j] = create_point(map, i, j, splitted_line);
 			j++;
 		}
 		i++;
@@ -133,7 +134,7 @@ void	create_map(t_map *map, int line_count, int col_count)
 	}
 	map->point = point;
 	fill_map(map);
-	//printf_map(map); ///////
+	///printf_map(map); ///////
 	// FREE_MAP FUNCTION
 }
 

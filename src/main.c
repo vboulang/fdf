@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/09 17:13:54 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/10 15:13:21 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,39 @@ int	main(int argc, char **argv)
 		initialize_mlx_window(&map);
 		img = mlx_new_image(map.mlx, map.window_width, map.window_height); //IF ERROR DO SOMETHING
 		ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-		mlx_image_to_window(map.mlx, img, 0, 0);
 		fill_background(&map, img);
 		y = 0;
-		//dprintf(2, "%d %d\n", map.width, map.height);
 		while (y < map.height)
 		{
 			x = 0;
 			while (x < map.width)
 			{
-				if(((map.point[y][x].isox) + map.window_width/2 < map.window_width) && (map.window_height/4 + (map.point[y][x].isoy) < map.window_height)
-					&& ((map.point[y][x].isox) + map.window_width/2 > 0) && (map.window_height/4 + (map.point[y][x].isoy) > 0))
-				mlx_put_pixel(img, (map.point[y][x].isox) + map.window_width/2, map.window_height/4 + (map.point[y][x].isoy), map.point[y][x].color);
+				// if(((map.point[y][x].isox) + map.window_width/2 < map.window_width) && (map.window_height/4 + (map.point[y][x].isoy) < map.window_height)
+				// 	&& ((map.point[y][x].isox) + map.window_width/2 > 0) && (map.window_height/4 + (map.point[y][x].isoy) > 0))
+				// 	mlx_put_pixel(img, (map.point[y][x].isox) + map.window_width/2, map.window_height/4 + (map.point[y][x].isoy), map.point[y][x].color);
+				if (map.point[y][x].isox < map.window_width && map.point[y][x].isoy < map.window_height
+					&& map.point[y][x].isox > 0 && map.point[y][x].isoy > 0)
+					mlx_put_pixel(img, map.point[y][x].isox, map.point[y][x].isoy, map.point[y][x].color);
 				x++;
 			}
 			y++;
 		}
-		// pixel_map(&map);
+		// Draw lines
+		y = 0;
+		while (y < map.height)
+		{
+			x = 0;
+			while (x < map.width)
+			{
+				if (x + 1 < map.width)
+					draw_line(img, &map.point[y][x], &map.point[y][x + 1]);
+				if (y + 1 < map.height)
+					draw_line(img, &map.point[y][x], &map.point[y + 1][x]);
+				x++;
+			}
+			y++;
+		}
+		mlx_image_to_window(map.mlx, img, 0, 0);
 		all_hooks(&map);
 		mlx_loop(map.mlx);
 		mlx_terminate(map.mlx);

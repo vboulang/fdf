@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/09 17:26:19 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/10 15:47:45 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,79 @@ isometrique. A voir s'il pourrait y avoir une regle
 // 		+ (point->y * cos(30 * M_PI / 180))
 // 		+ (point->z * sin(asin(tan(30 * M_PI / 180))) * cos(45));
 	
-// 	point->isox = ceil(u);
-// 	point->isoy = ceil(v);
+// 	point->isox = ceil(-u * 15) + point->map->window_width/2;
+// 	point->isoy = ceil(v * 15) + point->map->window_height/4;
 // }
-
 
 void	isometric_conversion(t_point *point)
 {
 	double	u;
 	double	v;
 
-	u = (point->x  - point->y) * cos(30 * M_PI / 180);
-	//u = (point->x  - point->y) * (sqrt(2) /2);
+	u = (point->x  - point->y) * -cos(30 * M_PI / 180);
 	v = (point->x + point->y) * sin(30 * M_PI / 180) - (point->z);
-	//v = (((point->x + point->z)  * (sqrt(6) /6)) + (point->y * cos(sqrt(3)/3)));
-
-	point->isox = ceil(-u * 10); //why minus
-	point->isoy = ceil(v * 10);
+	point->isox = ceil(u * 45) + point->map->window_width/2;
+	point->isoy = ceil(v * 45) + point->map->window_height/4;
 }
 
-// double	bresenham(int x1, int x2, int y1, int y2)
-// {
-	
-// }
+/*
+	Bresenham algorithm
+*/
+int	choose_case(int dx, int dy)
+{
+	return (0)
+}
+
+void	draw_line(mlx_image_t *img, t_point *point, t_point *next)
+{
+	int	dx;
+	int	dy;
+	int	x;
+	int	y;
+	int	p;
+
+
+	dx = next->isox - point->isox;
+	dy = next->isoy - point->isoy;
+	p = 2 * dy - dx;
+	if (dx > 0)
+	{
+		x = point->isox;
+		y = point->isoy;
+		while(x < next->isox)
+		{
+			if(x < point->map->window_width && y < point->map->window_height && x > 0 && y > 0)
+				mlx_put_pixel(img, x, y, point->color);
+			if (p >=0)
+			{
+				y +=1;
+				p += 2 * dy - 2 * dx;
+			}
+			else
+				p += 2 * dy;
+			x += 1;
+		}
+	}
+	else
+	{
+		x = next->isox;
+		y = next->isoy;
+		while(x < point->isox)
+		{
+			if(x < point->map->window_width && y < point->map->window_height && x > 0 && y > 0)
+				mlx_put_pixel(img, x, y, next->color);
+			if (p >=0)
+			{
+				y -=1;
+				p += 2 * dy - 2 * dx;
+			}
+			else
+				p += 2 * dy;
+			x += 1;
+		}
+	}
+}
+
 static int	get_n(char c, char *base)
 {
 	int	i;

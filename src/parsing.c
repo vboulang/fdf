@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/10 15:27:15 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:20:48 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ void	printf_map(t_map *map)
 		y++;
 	}
 	printf("\n\n\n\n");
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			printf("u: %0.0f v: %0.0f ",
-				map->point[y][x].isox, map->point[y][x].isoy);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
 }
 
 t_point	create_point(t_map *map, int i, int j, char **splitted_line)
@@ -58,9 +45,9 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 	{
 		carac = ft_split(splitted_line[j], ',');
 		if (!carac)
-			exit(EXIT_FAILURE); ///
+			exit(EXIT_FAILURE);
 		pt.z = ft_atoi(carac[0]);
-		pt.color = ft_htoi_base(carac[1],"0123456789ABCDEF");
+		pt.color = ft_htoi_base(carac[1], "0123456789ABCDEF");
 	}
 	else
 	{
@@ -71,20 +58,13 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 	return (pt);
 }
 
-void	fill_map(t_map *map)
+void	filler(t_map *map, int fd)
 {
-	int		fd;
 	int		i;
 	int		j;
 	char	*line;
 	char	**splitted_line;
 
-	fd = open(map->filename, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("File couldn't be opened.");
-		exit(EXIT_FAILURE);
-	}
 	i = 0;
 	while (i < map->height)
 	{
@@ -102,19 +82,42 @@ void	fill_map(t_map *map)
 		free(line);
 	if (splitted_line)
 		free_all(splitted_line);
+}
+
+void	fill_map(t_map *map)
+{
+	int		fd;
+
+	fd = open(map->filename, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("File couldn't be opened.");
+		exit(EXIT_FAILURE);
+	}
+	filler(map, fd);
 	close(fd);
 }
 
+void	set_window_restriction(t_map *map, int line_count, int col_count)
+{
+	map->height = line_count;
+	map->width = col_count;
+	if (map->height * 40 < map->window_height)
+		map->window_height = map->height * 40;
+	if (map->width * 50 < map->window_width)
+		map->window_width = map->width * 50;
+}
+
+/*
+	Need to add a free functon
+*/
 void	create_map(t_map *map, int line_count, int col_count)
 {
 	int		i;
 	t_point	**point;
 
 	i = 0;
-	map->height = line_count;
-	map->width = col_count;
-	map->window_height = map->height * 40;
-	map->window_width = map->width * 50;
+	set_window_restriction(map, line_count, col_count);
 	point = ft_calloc((line_count + 1), sizeof(t_point *));
 	if (!point)
 	{
@@ -134,8 +137,6 @@ void	create_map(t_map *map, int line_count, int col_count)
 	}
 	map->point = point;
 	fill_map(map);
-	///printf_map(map); ///////
-	// FREE_MAP FUNCTION
 }
 
 void	free_and_null(char *str)

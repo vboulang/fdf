@@ -6,20 +6,24 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/10 15:13:21 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:37:08 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // https://pikuma.com/blog/isometric-projection-in-games
 #include "../inc/fdf.h"
 
+/*
+	IF ERROR, put error message
+*/
 void	initialize_map(t_map *map, char *str)
 {
 	map->height = 0;
 	map->width = 0;
+	map->window_height = 1000;
+	map->window_width = 1500;
 	map->point = NULL;
 	map->filename = str;
-	//IF ERROR
 }
 
 void	initialize_mlx_window(t_map *map)
@@ -28,14 +32,13 @@ void	initialize_mlx_window(t_map *map)
 		map->window_height = 1000;
 	if (map->window_width > 1500)
 		map->window_width = 1500;
-	map->mlx = mlx_init(map->window_width, map->window_height, "Fdf", true);
 }
 
 void	fill_background(t_map *map, mlx_image_t *img)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < map->window_height)
 	{
@@ -49,52 +52,70 @@ void	fill_background(t_map *map, mlx_image_t *img)
 	}
 }
 
+void	draw_points(t_map *map, mlx_image_t *img)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->point[y][x].isox < map->window_width
+				&& map->point[y][x].isoy < map->window_height
+				&& map->point[y][x].isox > 0 && map->point[y][x].isoy > 0)
+				mlx_put_pixel(img, map->point[y][x].isox,
+					map->point[y][x].isoy, map->point[y][x].color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw(t_map *map, mlx_image_t *img)
+{
+	int	x;
+	int	y;
+
+	draw_points(map, img);
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (x + 1 < map->width)
+				choose_case(img, &map->point[y][x], &map->point[y][x + 1]);
+			if (y + 1 < map->height)
+				choose_case(img, &map->point[y][x], &map->point[y + 1][x]);
+			if (x - 1 >= 0)
+				choose_case(img, &map->point[y][x], &map->point[y][x - 1]);
+			if (y - 1 >= 0)
+				choose_case(img, &map->point[y][x], &map->point[y - 1][x]);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_map		map;
 	mlx_image_t	*img;
-	int x;
-	int y;
 
 	if (argc == 2)
 	{
 		initialize_map(&map, argv[1]);
 		get_map_size(argv[1], &map);
-		initialize_mlx_window(&map);
-		img = mlx_new_image(map.mlx, map.window_width, map.window_height); //IF ERROR DO SOMETHING
+		map.mlx = mlx_init(map.window_width, map.window_height, "Fdf", true);
+		img = mlx_new_image(map.mlx, map.window_width, map.window_height);
+		if (!img)
+			perror("Problem creating the image");
 		ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 		fill_background(&map, img);
-		y = 0;
-		while (y < map.height)
-		{
-			x = 0;
-			while (x < map.width)
-			{
-				// if(((map.point[y][x].isox) + map.window_width/2 < map.window_width) && (map.window_height/4 + (map.point[y][x].isoy) < map.window_height)
-				// 	&& ((map.point[y][x].isox) + map.window_width/2 > 0) && (map.window_height/4 + (map.point[y][x].isoy) > 0))
-				// 	mlx_put_pixel(img, (map.point[y][x].isox) + map.window_width/2, map.window_height/4 + (map.point[y][x].isoy), map.point[y][x].color);
-				if (map.point[y][x].isox < map.window_width && map.point[y][x].isoy < map.window_height
-					&& map.point[y][x].isox > 0 && map.point[y][x].isoy > 0)
-					mlx_put_pixel(img, map.point[y][x].isox, map.point[y][x].isoy, map.point[y][x].color);
-				x++;
-			}
-			y++;
-		}
-		// Draw lines
-		y = 0;
-		while (y < map.height)
-		{
-			x = 0;
-			while (x < map.width)
-			{
-				if (x + 1 < map.width)
-					draw_line(img, &map.point[y][x], &map.point[y][x + 1]);
-				if (y + 1 < map.height)
-					draw_line(img, &map.point[y][x], &map.point[y + 1][x]);
-				x++;
-			}
-			y++;
-		}
+		draw(&map, img);
 		mlx_image_to_window(map.mlx, img, 0, 0);
 		all_hooks(&map);
 		mlx_loop(map.mlx);

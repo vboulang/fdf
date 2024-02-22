@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/10 14:50:30 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:48:23 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 # include "../libft/inc/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
-typedef struct s_map t_map;
+typedef struct s_map	t_map;
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-	int		z;
-	double	isox;
-	double	isoy;
-	t_map	*map;
+	int			x;
+	int			y;
+	int			z;
+	double		isox;
+	double		isoy;
+	t_map		*map;
 	u_int32_t	color; //check type in MLX
 }	t_point;
 
@@ -45,23 +45,24 @@ typedef struct s_map
 	mlx_t	*mlx;
 }	t_map;
 
-int		main(int argc, char **argv);
-void	initialize_map(t_map *map, char *str);
+int			main(int argc, char **argv);
+void		initialize_map(t_map *map, char *str);
 
-void	get_map_size(char *file, t_map *map);
-int		get_col_nb(char *line);
-void	create_map(t_map *map, int line_count, int col_count);
+void		get_map_size(char *file, t_map *map);
+int			get_col_nb(char *line);
+void		create_map(t_map *map, int line_count, int col_count);
 
-void	free_all(char **strs);
-void	free_and_null(char *str);
-void	free_all_map(t_point **point);
+void		free_all(char **strs);
+void		free_and_null(char *str);
+void		free_all_map(t_point **point);
 
-void	printf_map(t_map *map);
+void		printf_map(t_map *map);
 
-void	close_esc(void *param);
-void	all_hooks(t_map *map);
+void		close_esc(void *param);
+void		all_hooks(t_map *map);
 
-void	isometric_conversion(t_point *point);
-void	draw_line(mlx_image_t *img, t_point *point, t_point *next);
+void		isometric_conversion(t_point *point);
+void		draw_line(mlx_image_t *img, t_point *point, t_point *next);
+void		choose_case(mlx_image_t *img, t_point *point, t_point *next);
 uint32_t	ft_htoi_base(const char *str, char *base);
 #endif

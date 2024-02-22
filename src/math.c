@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/10 15:47:45 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:45:43 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ isometrique. A voir s'il pourrait y avoir une regle
 // 	double	v;
 
 // 	u = (point->x * cos(45 * M_PI / 180)) - (point->y * sin(45 * M_PI / 180));
-	
 // 	v = (point->x * sin(30 * M_PI / 180) * sin(45 * M_PI / 180))
 // 		+ (point->y * cos(30 * M_PI / 180))
 // 		+ (point->z * sin(asin(tan(30 * M_PI / 180))) * cos(45));
-	
+
 // 	point->isox = ceil(-u * 15) + point->map->window_width/2;
 // 	point->isoy = ceil(v * 15) + point->map->window_height/4;
 // }
@@ -47,67 +46,102 @@ void	isometric_conversion(t_point *point)
 	double	u;
 	double	v;
 
-	u = (point->x  - point->y) * -cos(30 * M_PI / 180);
+	u = (point->x - point->y) * -cos(30 * M_PI / 180);
 	v = (point->x + point->y) * sin(30 * M_PI / 180) - (point->z);
-	point->isox = ceil(u * 45) + point->map->window_width/2;
-	point->isoy = ceil(v * 45) + point->map->window_height/4;
+	point->isox = ceil(u * 10) + (point->map->window_width / 2);
+	point->isoy = ceil(v * 10) + (point->map->window_height / 4);
 }
 
-/*
-	Bresenham algorithm
-*/
-int	choose_case(int dx, int dy)
-{
-	return (0)
-}
-
-void	draw_line(mlx_image_t *img, t_point *point, t_point *next)
+void	draw_line_low(mlx_image_t *img, t_point *point, t_point *next)
 {
 	int	dx;
 	int	dy;
 	int	x;
 	int	y;
 	int	p;
-
+	int	yi;
 
 	dx = next->isox - point->isox;
 	dy = next->isoy - point->isoy;
-	p = 2 * dy - dx;
-	if (dx > 0)
+	yi = 1;
+	if (dy < 0)
 	{
-		x = point->isox;
-		y = point->isoy;
-		while(x < next->isox)
+		yi = -1;
+		dy = -dy;
+	}
+	p = (2 * dy) - dx;
+	x = point->isox;
+	y = point->isoy;
+	while (x < next->isox)
+	{
+		if (x < point->map->window_width && y < point->map->window_height
+			&& x > 0 && y > 0)
+			mlx_put_pixel(img, x, y, point->color);
+		if (p > 0)
 		{
-			if(x < point->map->window_width && y < point->map->window_height && x > 0 && y > 0)
-				mlx_put_pixel(img, x, y, point->color);
-			if (p >=0)
-			{
-				y +=1;
-				p += 2 * dy - 2 * dx;
-			}
-			else
-				p += 2 * dy;
-			x += 1;
+			y += yi;
+			p += (2 * (dy - dx));
 		}
+		else
+			p += (2 * dy);
+		x += 1;
+	}
+}
+
+void	draw_line_high(mlx_image_t *img, t_point *point, t_point *next)
+{
+	int	dx;
+	int	dy;
+	int	xi;
+	int	x;
+	int	y;
+	int	p;
+
+	dx = next->isox - point->isox;
+	dy = next->isoy - point->isoy;
+	xi = 1;
+	if (dx < 0)
+	{
+		xi = -1;
+		dx = -dx;
+	}
+	p = (2 * dx) - dy;
+	x = point->isox;
+	y = point->isoy;
+	while (y < next->isoy)
+	{
+		if (x < point->map->window_width && y < point->map->window_height
+			&& x > 0 && y > 0)
+			mlx_put_pixel(img, x, y, point->color);
+		if (p > 0)
+		{
+			x += xi;
+			p += 2 * (dx - dy);
+		}
+		else
+			p += (2 * dx);
+		y += 1;
+	}
+}
+
+/*
+	Bresenham algorithm
+*/
+void	choose_case(mlx_image_t *img, t_point *point, t_point *next)
+{
+	if (fabs(next->isoy - point->isoy) < fabs(next->isox - point->isox))
+	{
+		if (point->isox - next->isox > 0)
+			draw_line_low(img, next, point);
+		else
+			draw_line_low(img, point, next);
 	}
 	else
 	{
-		x = next->isox;
-		y = next->isoy;
-		while(x < point->isox)
-		{
-			if(x < point->map->window_width && y < point->map->window_height && x > 0 && y > 0)
-				mlx_put_pixel(img, x, y, next->color);
-			if (p >=0)
-			{
-				y -=1;
-				p += 2 * dy - 2 * dx;
-			}
-			else
-				p += 2 * dy;
-			x += 1;
-		}
+		if (point->isoy - next->isoy > 0)
+			draw_line_high(img, next, point);
+		else
+			draw_line_high(img, point, next);
 	}
 }
 
@@ -119,30 +153,31 @@ static int	get_n(char c, char *base)
 	if (ft_isdigit(c))
 		return (ft_atoi(&c));
 	else
+	{
+		while (base[i])
 		{
-			while (base[i])
-			{
-				if (ft_tolower(base[i]) == c || ft_toupper(base[i]) == c)
-					return (i);
-				i++;
-			}
+			if (ft_tolower(base[i]) == c || ft_toupper(base[i]) == c)
+				return (i);
+			i++;
 		}
+	}
 	return (-1);
 }
 
 /*
 To convert hexadecimal in any base. Hexadecimal has to start with 0x.
 
-Careful as no protection is implemented in get_n if the character isn't in the base characters.
+Careful as no protection is implemented in get_n if the 
+character isn't in the base characters.
 Works even if base is in a different case (for FDF source maps purposes)
 */
 uint32_t	ft_htoi_base(const char *str, char *base)
 {
-	int	i;
+	int			i;
 	uint32_t	result;
-	int	base_length;
-	int	len;
-	double	multiple;
+	int			base_length;
+	int			len;
+	double		multiple;
 
 	base_length = ft_strlen(base);
 	len = ft_strlen(str) - 2;

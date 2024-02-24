@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/23 21:00:13 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:59:20 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-//DO NOT KEEP?
-void	printf_map(t_map *map)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			printf("%d ", map->point[y][x].z);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	printf("\n\n\n\n");
-}
 
 t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 {
@@ -40,7 +19,7 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 
 	pt.x = i;
 	pt.y = j;
-	pt.map  = map;
+	pt.map = map;
 	if (ft_strchr(splitted_line[j], ','))
 	{
 		carac = ft_split(splitted_line[j], ',');
@@ -86,7 +65,6 @@ void	filler(t_map *map, int fd)
 			free(line);
 		i++;
 	}
-
 }
 
 void	fill_map(t_map *map)
@@ -103,23 +81,8 @@ void	fill_map(t_map *map)
 	close(fd);
 }
 
-void	set_window_restriction(t_map *map, int line_count, int col_count)
-{
-	float	scalex;
-	float	scaley;
-
-	scalex = (float)WIDTH / col_count;
-	scaley = (float)HEIGHT / line_count;
-	if(scalex > scaley)
-		map->scale = scaley;
-	else
-		map->scale = scalex;
-	map->height = line_count;
-	map->width = col_count;
-}
-
 /*
-	Need to add a free functon
+	Need to add a free functon for points
 */
 void	create_map(t_map *map, int line_count, int col_count)
 {
@@ -147,60 +110,6 @@ void	create_map(t_map *map, int line_count, int col_count)
 	}
 	map->point = point;
 	fill_map(map);
-}
-
-void	free_and_null(char *str)
-{
-	free(str);
-	str = NULL;
-}
-
-void	free_all_map(t_point **point)
-{
-	int	i;
-
-	i = 0;
-	while (point[i])
-		i++;
-	i--;
-	while (i >= 0)
-	{
-		free(point[i]);
-		point[i] = NULL;
-		i--;
-	}
-	free(point);
-	point = NULL;
-}
-
-void	free_all(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		i++;
-	i--;
-	while (i >= 0)
-	{
-		free_and_null(strs[i]);
-		i--;
-	}
-	free(strs);
-	strs = NULL;
-}
-
-int	get_col_nb(char *line)
-{
-	char	**splitted_line;
-	int		i;
-
-	splitted_line = ft_split(line, ' ');
-	i = 0;
-	while (splitted_line[i])
-		i++;
-	free_all(splitted_line);
-	return (i);
 }
 
 void	get_map_size(char *file, t_map *map)

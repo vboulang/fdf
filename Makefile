@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/02/23 21:06:52 by vboulang         ###   ########.fr        #
+#    Updated: 2024/02/24 17:15:40 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,11 @@ MK			=	mkdir -p
 #Source files
 
 SRC			= 	main.c \
-				parsing.c \
+				load_map.c \
 				hooks.c \
-				math.c 
+				math.c \
+				utils.c \
+				free_utils.c
 #seb.c
 
 VPATH		=	$(SRCDIR)

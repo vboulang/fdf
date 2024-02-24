@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/23 20:23:04 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:13:53 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,19 @@ void	isometric_conversion(t_point *point)
 	double	v;
 
 	u = (point->x - point->y) * -cos(30 * M_PI / 180);
-	v = (point->x + point->y) * sin(30 * M_PI / 180) - (point->z * point->map->scalez);
-	point->isox = ceil(u * (point->map->scale/point->map->zoomf)) + (WIDTH / 2) + point->map->h_dis;
-	point->isoy = ceil(v * (point->map->scale/point->map->zoomf)) + (HEIGHT / 4) + point->map->v_dis;
+	v = (point->x + point->y) * sin(30 * M_PI / 180)
+		- (point->z * point->map->scalez);
+	point->isox = ceil(u * (point->map->scale / point->map->zoomf))
+		+ (WIDTH / 2) + point->map->h_dis;
+	point->isoy = ceil(v * (point->map->scale / point->map->zoomf))
+		+ (HEIGHT / 4) + point->map->v_dis;
 }
 
 void	update_point(t_map *map)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < map->height)
 	{
@@ -72,73 +75,55 @@ void	update_point(t_map *map)
 
 void	draw_line_low(mlx_image_t *img, t_point *point, t_point *next)
 {
-	int	dx;
-	int	dy;
-	int	x;
-	int	y;
-	int	p;
-	int	yi;
+	t_line	line;
 
-	dx = next->isox - point->isox;
-	dy = next->isoy - point->isoy;
-	yi = 1;
-	if (dy < 0)
+	init_line_struct(&line, point, next);
+	if (line.dy < 0)
 	{
-		yi = -1;
-		dy = -dy;
+		line.di = -1;
+		line.dy = -line.dy;
 	}
-	p = (2 * dy) - dx;
-	x = point->isox;
-	y = point->isoy;
-	while (x < next->isox)
+	line.p = (2 * line.dy) - line.dx;
+	while (line.x < next->isox)
 	{
-		if ((uint32_t)x < img->width && (uint32_t)y < img->height
-			&& x > 0 && y > 0)
-			mlx_put_pixel(img, x, y, point->color);
-		if (p > 0)
+		if ((uint32_t)line.x < img->width && (uint32_t)line.y < img->height
+			&& line.x > 0 && line.y > 0)
+			mlx_put_pixel(img, line.x, line.y, point->color);
+		if (line.p > 0)
 		{
-			y += yi;
-			p += (2 * (dy - dx));
+			line.y += line.di;
+			line.p += (2 * (line.dy - line.dx));
 		}
 		else
-			p += (2 * dy);
-		x += 1;
+			line.p += (2 * line.dy);
+		line.x += 1;
 	}
 }
 
 void	draw_line_high(mlx_image_t *img, t_point *point, t_point *next)
 {
-	int	dx;
-	int	dy;
-	int	xi;
-	int	x;
-	int	y;
-	int	p;
+	t_line	line;
 
-	dx = next->isox - point->isox;
-	dy = next->isoy - point->isoy;
-	xi = 1;
-	if (dx < 0)
+	init_line_struct(&line, point, next);
+	if (line.dx < 0)
 	{
-		xi = -1;
-		dx = -dx;
+		line.di = -1;
+		line.dx = -line.dx;
 	}
-	p = (2 * dx) - dy;
-	x = point->isox;
-	y = point->isoy;
-	while (y < next->isoy)
+	line.p = (2 * line.dx) - line.dy;
+	while (line.y < next->isoy)
 	{
-		if ((uint32_t)x < img->width && (uint32_t)y < img->height
-			&& x > 0 && y > 0)
-			mlx_put_pixel(img, x, y, point->color);
-		if (p > 0)
+		if ((uint32_t)line.x < img->width && (uint32_t)line.y < img->height
+			&& line.x > 0 && line.y > 0)
+			mlx_put_pixel(img, line.x, line.y, point->color);
+		if (line.p > 0)
 		{
-			x += xi;
-			p += 2 * (dx - dy);
+			line.x += line.di;
+			line.p += 2 * (line.dx - line.dy);
 		}
 		else
-			p += (2 * dx);
-		y += 1;
+			line.p += (2 * line.dx);
+		line.y += 1;
 	}
 }
 
@@ -161,54 +146,4 @@ void	choose_case(mlx_image_t *img, t_point *point, t_point *next)
 		else
 			draw_line_high(img, point, next);
 	}
-}
-
-static int	get_n(char c, char *base)
-{
-	int	i;
-
-	i = 10;
-	if (ft_isdigit(c))
-		return (ft_atoi(&c));
-	else
-	{
-		while (base[i])
-		{
-			if (ft_tolower(base[i]) == c || ft_toupper(base[i]) == c)
-				return (i);
-			i++;
-		}
-	}
-	return (-1);
-}
-
-/*
-To convert hexadecimal in any base. Hexadecimal has to start with 0x.
-
-Careful as no protection is implemented in get_n if the 
-character isn't in the base characters.
-Works even if base is in a different case (for FDF source maps purposes)
-*/
-uint32_t	ft_htoi_base(const char *str, char *base)
-{
-	int			i;
-	uint32_t	result;
-	int			base_length;
-	int			len;
-	double		multiple;
-
-	base_length = ft_strlen(base);
-	len = ft_strlen(str) - 2;
-	result = 0;
-	i = 2;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		multiple = pow(base_length, len - 1);
-		result += (get_n(str[i], base)) * multiple;
-		i++;
-		len--;
-	}
-	return (result);
 }

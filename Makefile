@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/02/02 15:39:05 by vboulang         ###   ########.fr        #
+#    Updated: 2024/02/23 21:06:52 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	fdf
 
 #Compiling variables
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g #-fsanitize=address
 
 #Directories
 LIBDIR		=	libft
@@ -76,7 +76,9 @@ $(OBJDIR):
 	fi
 	
 libmlx:
-	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4
+	@if [ ! -d "MLX42/build" ]; then \
+		cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4; \
+	fi
 
 clean:
 	$(RM) $(OBJDIR)

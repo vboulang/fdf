@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/22 15:20:48 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:00:13 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,18 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 
 	pt.x = i;
 	pt.y = j;
-	pt.map = map;
+	pt.map  = map;
 	if (ft_strchr(splitted_line[j], ','))
 	{
 		carac = ft_split(splitted_line[j], ',');
 		if (!carac)
+		{
+			free_all(splitted_line);
 			exit(EXIT_FAILURE);
+		}
 		pt.z = ft_atoi(carac[0]);
 		pt.color = ft_htoi_base(carac[1], "0123456789ABCDEF");
+		free_all(carac);
 	}
 	else
 	{
@@ -76,12 +80,13 @@ void	filler(t_map *map, int fd)
 			map->point[i][j] = create_point(map, i, j, splitted_line);
 			j++;
 		}
+		if (splitted_line)
+			free_all(splitted_line);
+		if (line)
+			free(line);
 		i++;
 	}
-	if (line)
-		free(line);
-	if (splitted_line)
-		free_all(splitted_line);
+
 }
 
 void	fill_map(t_map *map)
@@ -100,12 +105,17 @@ void	fill_map(t_map *map)
 
 void	set_window_restriction(t_map *map, int line_count, int col_count)
 {
+	float	scalex;
+	float	scaley;
+
+	scalex = (float)WIDTH / col_count;
+	scaley = (float)HEIGHT / line_count;
+	if(scalex > scaley)
+		map->scale = scaley;
+	else
+		map->scale = scalex;
 	map->height = line_count;
 	map->width = col_count;
-	if (map->height * 40 < map->window_height)
-		map->window_height = map->height * 40;
-	if (map->width * 50 < map->window_width)
-		map->window_width = map->width * 50;
 }
 
 /*
@@ -121,7 +131,7 @@ void	create_map(t_map *map, int line_count, int col_count)
 	point = ft_calloc((line_count + 1), sizeof(t_point *));
 	if (!point)
 	{
-		printf("Couldn't load map");
+		perror("Couldn't load map");
 		exit(EXIT_FAILURE);
 	}
 	while (i < line_count)
@@ -129,7 +139,7 @@ void	create_map(t_map *map, int line_count, int col_count)
 		point[i] = ft_calloc((col_count + 1), sizeof(t_point));
 		if (!point)
 		{
-			printf("Couldn't load map point");
+			perror("Couldn't load map point");
 			free_all_map(point);
 			exit(EXIT_FAILURE);
 		}
@@ -216,7 +226,7 @@ void	get_map_size(char *file, t_map *map)
 		free_and_null(line);
 		line = get_next_line(fd);
 	}
+	free_and_null(line);
 	close(fd);
 	create_map(map, line_count, col_count);
-	free_and_null(line);
 }

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:25:51 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/22 15:45:43 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:23:04 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ isometrique. A voir s'il pourrait y avoir une regle
 // 		+ (point->y * cos(30 * M_PI / 180))
 // 		+ (point->z * sin(asin(tan(30 * M_PI / 180))) * cos(45));
 
-// 	point->isox = ceil(-u * 15) + point->map->window_width/2;
-// 	point->isoy = ceil(v * 15) + point->map->window_height/4;
+// 	point->isox = ceil(-u * 15) + WIDTH/2;
+// 	point->isoy = ceil(v * 15) + HEIGHT/4;
 // }
 
 void	isometric_conversion(t_point *point)
@@ -47,9 +47,27 @@ void	isometric_conversion(t_point *point)
 	double	v;
 
 	u = (point->x - point->y) * -cos(30 * M_PI / 180);
-	v = (point->x + point->y) * sin(30 * M_PI / 180) - (point->z);
-	point->isox = ceil(u * 10) + (point->map->window_width / 2);
-	point->isoy = ceil(v * 10) + (point->map->window_height / 4);
+	v = (point->x + point->y) * sin(30 * M_PI / 180) - (point->z * point->map->scalez);
+	point->isox = ceil(u * (point->map->scale/point->map->zoomf)) + (WIDTH / 2) + point->map->h_dis;
+	point->isoy = ceil(v * (point->map->scale/point->map->zoomf)) + (HEIGHT / 4) + point->map->v_dis;
+}
+
+void	update_point(t_map *map)
+{
+	int	x;
+	int	y;
+	
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			isometric_conversion(&map->point[y][x]);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	draw_line_low(mlx_image_t *img, t_point *point, t_point *next)
@@ -74,7 +92,7 @@ void	draw_line_low(mlx_image_t *img, t_point *point, t_point *next)
 	y = point->isoy;
 	while (x < next->isox)
 	{
-		if (x < point->map->window_width && y < point->map->window_height
+		if ((uint32_t)x < img->width && (uint32_t)y < img->height
 			&& x > 0 && y > 0)
 			mlx_put_pixel(img, x, y, point->color);
 		if (p > 0)
@@ -110,7 +128,7 @@ void	draw_line_high(mlx_image_t *img, t_point *point, t_point *next)
 	y = point->isoy;
 	while (y < next->isoy)
 	{
-		if (x < point->map->window_width && y < point->map->window_height
+		if ((uint32_t)x < img->width && (uint32_t)y < img->height
 			&& x > 0 && y > 0)
 			mlx_put_pixel(img, x, y, point->color);
 		if (p > 0)

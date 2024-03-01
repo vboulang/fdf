@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:46:45 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/24 17:14:53 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/01 15:13:24 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ Careful as no protection is implemented in get_n if the
 character isn't in the base characters.
 Works even if base is in a different case (for FDF source maps purposes)
 */
-uint32_t	ft_htoi_base(const char *str, char *base)
+uint32_t	ft_atoi_base(const char *str, char *base)
 {
 	int			i;
 	uint32_t	result;

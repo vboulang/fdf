@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/24 17:18:04 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/01 15:13:06 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_map
 	int			width;
 	int			h_dis;
 	int			v_dis;
+	int			fd;
 	float		scale;
 	float		zoomf;
 	float		scalez;
@@ -81,7 +82,7 @@ void		close_esc(void *param);
 void		all_hooks(t_map *map);
 
 void		init_line_struct(t_line *line, t_point *point, t_point *next);
-uint32_t	ft_htoi_base(const char *str, char *base);
+uint32_t	ft_atoi_base(const char *str, char *base);
 int			get_col_nb(char *line);
 void		set_window_restriction(t_map *map, int line_count, int col_count);
 

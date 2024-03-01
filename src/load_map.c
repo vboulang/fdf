@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/24 16:59:20 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/01 15:12:58 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 		if (!carac)
 		{
 			free_all(splitted_line);
+			close(map->fd);
 			exit(EXIT_FAILURE);
 		}
 		pt.z = ft_atoi(carac[0]);
-		pt.color = ft_htoi_base(carac[1], "0123456789ABCDEF");
+		pt.color = ft_atoi_base(carac[1], "0123456789ABCDEF");
 		free_all(carac);
 	}
 	else
@@ -41,7 +42,7 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 	return (pt);
 }
 
-void	filler(t_map *map, int fd)
+void	filler(t_map *map)
 {
 	int		i;
 	int		j;
@@ -51,7 +52,7 @@ void	filler(t_map *map, int fd)
 	i = 0;
 	while (i < map->height)
 	{
-		line = ft_strtrim(get_next_line(fd), "\n");
+		line = ft_strtrim(get_next_line(map->fd), "\n");
 		splitted_line = ft_split(line, ' ');
 		j = 0;
 		while (j < map->width)
@@ -69,16 +70,14 @@ void	filler(t_map *map, int fd)
 
 void	fill_map(t_map *map)
 {
-	int		fd;
-
-	fd = open(map->filename, O_RDONLY);
-	if (fd == -1)
+	map->fd = open(map->filename, O_RDONLY);
+	if (map->fd == -1)
 	{
 		printf("File couldn't be opened.");
 		exit(EXIT_FAILURE);
 	}
-	filler(map, fd);
-	close(fd);
+	filler(map);
+	close(map->fd);
 }
 
 /*

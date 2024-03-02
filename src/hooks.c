@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 10:33:44 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/24 16:49:36 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 10:38:24 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,4 @@ void	recenter(void *param)
 	update_point(map);
 	fill_background(map->img);
 	draw(map);
-}
-
-void	all_hooks(t_map *map)
-{
-	mlx_loop_hook(map->mlx, close_esc, map);
-	mlx_loop_hook(map->mlx, move, map);
-	mlx_loop_hook(map->mlx, zoom, map);
-	mlx_loop_hook(map->mlx, change_z, map);
-	mlx_loop_hook(map->mlx, recenter, map);
 }

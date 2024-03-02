@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 11:16:21 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/19 16:02:27 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:06:08 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_check_set(char const *s1, char const *set, int len_s1, int inc)
 	return (i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	int		len_s1;
 	int		start;
@@ -57,5 +57,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!trimmed)
 		return (NULL);
 	ft_strlcpy(trimmed, s1 + start, last - start + 2);
+	free(s1);
 	return (trimmed);
 }

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/01 15:12:58 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 11:28:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 	{
 		carac = ft_split(splitted_line[j], ',');
 		if (!carac)
-		{
-			free_all(splitted_line);
-			close(map->fd);
-			exit(EXIT_FAILURE);
-		}
+			load_map_error(map, splitted_line);
 		pt.z = ft_atoi(carac[0]);
 		pt.color = ft_atoi_base(carac[1], "0123456789ABCDEF");
 		free_all(carac);
@@ -74,6 +70,22 @@ void	fill_map(t_map *map)
 	if (map->fd == -1)
 	{
 		printf("File couldn't be opened.");
+		free_map(map);
+		exit(EXIT_FAILURE);
+	}
+	if (check_map(map) == -1)
+	{
+		printf("Invalid file. Please input valid map file.");
+		free_map(map);
+		close(map->fd);
+		exit(EXIT_FAILURE);
+	}
+	close(map->fd);
+	map->fd = open(map->filename, O_RDONLY);
+	if (map->fd == -1)
+	{
+		printf("File couldn't be opened.");
+		free_map(map);
 		exit(EXIT_FAILURE);
 	}
 	filler(map);
@@ -114,27 +126,26 @@ void	create_map(t_map *map, int line_count, int col_count)
 void	get_map_size(char *file, t_map *map)
 {
 	char	*line;
-	int		fd;
 	int		line_count;
 	int		col_count;
 
 	line_count = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	map->fd = open(file, O_RDONLY);
+	if (map->fd == -1)
 	{
 		perror("File couldn't be opened.");
 		exit(EXIT_FAILURE);
 	}
-	line = ft_strtrim(get_next_line(fd), "\n");
+	line = ft_strtrim(get_next_line(map->fd), "\n");
 	if (line)
 		col_count = get_col_nb(line);
 	while (line)
 	{
 		line_count++;
 		free_and_null(line);
-		line = get_next_line(fd);
+		line = get_next_line(map->fd);
 	}
 	free_and_null(line);
-	close(fd);
+	close(map->fd);
 	create_map(map, line_count, col_count);
 }

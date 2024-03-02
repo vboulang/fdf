@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:45:33 by vboulang          #+#    #+#             */
-/*   Updated: 2024/02/24 16:48:14 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:13:01 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	free_all(char **strs)
 	}
 	free(strs);
 	strs = NULL;
+}
+
+void	free_map(t_map *map)
+{
+	if (map->point)
+		free_all_map(map->point);
 }

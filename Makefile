@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/02/24 17:15:40 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/02 11:12:34 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ SRC			= 	main.c \
 				hooks.c \
 				math.c \
 				utils.c \
-				free_utils.c
+				free_utils.c \
+				hook_loop.c \
+				misc_utils.c
 #seb.c
 
 VPATH		=	$(SRCDIR)

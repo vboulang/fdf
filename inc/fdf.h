@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/01 15:13:06 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 11:18:53 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,17 @@ void		create_map(t_map *map, int line_count, int col_count);
 void		free_all(char **strs);
 void		free_and_null(char *str);
 void		free_all_map(t_point **point);
+void		free_map(t_map *map);
 
-void		printf_map(t_map *map);
+int			check_map(t_map *map);
+void		load_map_error(t_map *map, char **strs);
 
+void		change_z(void *param);
 void		close_esc(void *param);
+void		recenter(void *param);
+void		zoom(void *param);
+void		move(void *param);
+
 void		all_hooks(t_map *map);
 
 void		init_line_struct(t_line *line, t_point *point, t_point *next);

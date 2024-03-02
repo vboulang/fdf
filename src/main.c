@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/01 14:13:49 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 11:27:56 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 /*
 	IF ERROR, put error message
 */
-void	initialize_map(t_map *map, char *str)
-{
-	map->height = 0;
-	map->width = 0;
-	map->scale = 1;
-	map->h_dis = 0;
-	map->v_dis = 0;
-	map->zoomf = 1.5;
-	map->scalez = 1;
-	map->point = NULL;
-	map->filename = str;
-}
-
 void	fill_background(mlx_image_t *img)
 {
 	uint32_t	i;
@@ -94,6 +81,22 @@ void	draw(t_map *map)
 	}
 }
 
+void	mlx_func(t_map *map)
+{
+	map->mlx = mlx_init(WIDTH, HEIGHT, "Fdf", true);
+	map->img = mlx_new_image(map->mlx, 3 * WIDTH, 3 * HEIGHT);
+	if (!map->img)
+		perror("Problem creating the image");
+	ft_memset(map->img->pixels, 0,
+		map->img->width * map->img->height * sizeof(int32_t));
+	fill_background(map->img);
+	draw(map);
+	mlx_image_to_window(map->mlx, map->img, 0, 0);
+	all_hooks(map);
+	mlx_loop(map->mlx);
+	mlx_terminate(map->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_map		map;
@@ -102,18 +105,8 @@ int	main(int argc, char **argv)
 	{
 		initialize_map(&map, argv[1]);
 		get_map_size(argv[1], &map);
-		map.mlx = mlx_init(WIDTH, HEIGHT, "Fdf", true);
-		map.img = mlx_new_image(map.mlx, 3 * WIDTH, 3 * HEIGHT);
-		if (!map.img)
-			perror("Problem creating the image");
-		ft_memset(map.img->pixels, 0,
-			map.img->width * map.img->height * sizeof(int32_t));
-		fill_background(map.img);
-		draw(&map);
-		mlx_image_to_window(map.mlx, map.img, 0, 0);
-		all_hooks(&map);
-		mlx_loop(map.mlx);
-		mlx_terminate(map.mlx);
+		mlx_func(&map);
+		free_map(&map);
 	}
 	else
 	{

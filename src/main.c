@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 11:27:56 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:56:22 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,25 @@ void	draw(t_map *map)
 void	mlx_func(t_map *map)
 {
 	map->mlx = mlx_init(WIDTH, HEIGHT, "Fdf", true);
+	if (!map->mlx)
+	{
+		printf("Failed to initialize mlx.\n");
+		free_map(map);
+		exit(EXIT_FAILURE);
+	}
 	map->img = mlx_new_image(map->mlx, 3 * WIDTH, 3 * HEIGHT);
 	if (!map->img)
-		perror("Problem creating the image");
+	{
+		printf("Problem creating the image.\n");
+		free_map(map);
+		exit(EXIT_FAILURE);
+	}
 	ft_memset(map->img->pixels, 0,
 		map->img->width * map->img->height * sizeof(int32_t));
 	fill_background(map->img);
 	draw(map);
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
+	string_mlx(map);
 	all_hooks(map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);

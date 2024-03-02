@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 10:40:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 12:48:20 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:56:35 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ void	initialize_map(t_map *map, char *str)
 	map->scalez = 1;
 	map->point = NULL;
 	map->filename = str;
+}
+
+void	string_mlx(t_map *map)
+{
+	mlx_put_string(map->mlx, "Move : A, W, S, D or LEFT, UP, DOWN, RIGHT",
+		10, 10);
+	mlx_put_string(map->mlx, "Zoom : Q, E", 10, 30);
+	mlx_put_string(map->mlx, "Change height : Z, X", 10, 50);
+	mlx_put_string(map->mlx, "Return settings to default : P", 10, 70);
+	mlx_put_string(map->mlx, "Close window : ESC", 10, 90);
 }

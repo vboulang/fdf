@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 11:18:53 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:55:42 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		free_map(t_map *map);
 
 int			check_map(t_map *map);
 void		load_map_error(t_map *map, char **strs);
+void		string_mlx(t_map *map);
 
 void		change_z(void *param);
 void		close_esc(void *param);

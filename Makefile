@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/02 11:12:34 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/03 01:51:36 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MK			=	mkdir -p
 
 #Source files
 
-SRC			= 	main.c \
+SRC			= 	fdf.c \
 				load_map.c \
 				hooks.c \
 				math.c \
@@ -43,12 +43,21 @@ SRC			= 	main.c \
 				free_utils.c \
 				hook_loop.c \
 				misc_utils.c
-#seb.c
+
+SRC_BONUS		= 	fdf_bonus.c \
+				load_map_bonus.c \
+				hooks_bonus.c \
+				math_bonus.c \
+				utils_bonus.c \
+				free_utils_bonus.c \
+				hook_loop_bonus.c \
+				misc_utils_bonus.c
 
 VPATH		=	$(SRCDIR)
 
 #Object files
 OBJ			=	$(addprefix $(OBJDIR)/,$(SRC:%.c=%.o))
+OBJ_BONUS	=	$(addprefix $(OBJDIR)/,$(SRC_BONUS:%.c=%.o))
 
 #MLX
 MLXFLAGS	=	-framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib/" #Place line if brew42 or not 42
@@ -84,6 +93,8 @@ libmlx:
 		cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4; \
 	fi
 
+bonus:
+	
 clean:
 	$(RM) $(OBJDIR)
 	$(RM) $(MLXDIR)/build

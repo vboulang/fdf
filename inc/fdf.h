@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 17:55:42 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/03 01:44:09 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		move(void *param);
 void		all_hooks(t_map *map);
 
 void		init_line_struct(t_line *line, t_point *point, t_point *next);
-uint32_t	ft_atoi_base(const char *str, char *base);
+u_int32_t	ft_atoi_base(const char *str, char *base);
 int			get_col_nb(char *line);
 void		set_window_restriction(t_map *map, int line_count, int col_count);
 
@@ -98,5 +98,4 @@ void		isometric_conversion(t_point *point);
 void		update_point(t_map *map);
 void		draw_line(mlx_image_t *img, t_point *point, t_point *next);
 void		choose_case(mlx_image_t *img, t_point *point, t_point *next);
-uint32_t	ft_htoi_base(const char *str, char *base);
 #endif

@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/06 14:54:53 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/06 15:39:50 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,7 @@ libmlx:
 		cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4; \
 	fi
 
-bonus: $(NAME_BONUS)
+bonus: deps libmlx $(NAME_BONUS)
 
 $(NAME_BONUS):  $(OBJDIR) $(OBJ_BONUS)
 	make -C $(LIBDIR)

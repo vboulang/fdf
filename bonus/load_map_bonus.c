@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map.c                                         :+:      :+:    :+:   */
+/*   load_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:45:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 11:28:27 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:24:52 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../inc/fdf_bonus.h"
 
 t_point	create_point(t_map *map, int i, int j, char **splitted_line)
 {
@@ -92,9 +92,6 @@ void	fill_map(t_map *map)
 	close(map->fd);
 }
 
-/*
-	Need to add a free functon for points
-*/
 void	create_map(t_map *map, int line_count, int col_count)
 {
 	int		i;

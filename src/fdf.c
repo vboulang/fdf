@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/02 17:56:22 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:06:25 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-/*
-	IF ERROR, put error message
-*/
 void	fill_background(mlx_image_t *img)
 {
 	uint32_t	i;
@@ -102,7 +99,6 @@ void	mlx_func(t_map *map)
 	fill_background(map->img);
 	draw(map);
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
-	string_mlx(map);
 	all_hooks(map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);

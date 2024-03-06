@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 14:52:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/06 15:14:38 by vboulang         ###   ########.fr       */
+/*   Created: 2024/03/06 15:18:15 by vboulang          #+#    #+#             */
+/*   Updated: 2024/03/06 15:28:32 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -62,43 +62,50 @@ typedef struct s_line
 	int	di;
 }	t_line;
 
-//Functions in fdf.c
-int			main(int argc, char **argv);
-void		mlx_func(t_map *map);
-void		draw(t_map *map);
-void		draw_points(t_map *map);
+//Functions in fdf_bonus.c
 void		fill_background(mlx_image_t *img);
+void		draw_points(t_map *map);
+void		draw(t_map *map);
+void		mlx_func(t_map *map);
+int			main(int argc, char **argv);
 
-//Functions in load_map.c
+//Functions in load_map_bonus.c
 t_point		create_point(t_map *map, int i, int j, char **splitted_line);
 void		filler(t_map *map);
 void		fill_map(t_map *map);
 void		create_map(t_map *map, int line_count, int col_count);
 void		get_map_size(char *file, t_map *map);
 
-//Functions in math.c
+//Functions in math_bonus.c
 void		isometric_conversion(t_point *point);
 void		update_point(t_map *map);
 void		draw_line_low(mlx_image_t *img, t_point *point, t_point *next);
 void		draw_line_high(mlx_image_t *img, t_point *point, t_point *next);
 void		choose_case(mlx_image_t *img, t_point *point, t_point *next);
 
-//Functions in hooks.c
+//Functions in hooks_bonus.c
 void		close_esc(void *param);
+void		move(void *param);
+void		zoom(void *param);
+void		change_z(void *param);
+void		recenter(void *param);
+
+//Functions in hook_loop_bonus.c
 void		all_hooks(t_map *map);
 
-//Functions in utils.c
+//Functions in utils_bonus.c
 void		set_window_restriction(t_map *map, int line_count, int col_count);
 int			get_col_nb(char *line);
 u_int32_t	ft_atoi_base(const char *str, char *base);
 void		init_line_struct(t_line *line, t_point *point, t_point *next);
 
-//Functions in misc_utils.c
+//Functions in misc_utils_bonus.c
 int			check_map(t_map *map);
 void		load_map_error(t_map *map, char **strs);
 void		initialize_map(t_map *map, char *str);
+void		string_mlx(t_map *map);
 
-//Functions in free_utils.c
+//Functions in free_utils_bonus.c
 void		free_and_null(char *str);
 void		free_all_map(t_point **point);
 void		free_all(char **strs);

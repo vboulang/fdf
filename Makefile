@@ -6,28 +6,31 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/03 01:51:36 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/06 14:54:53 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Program names
 NAME		=	fdf
+NAME_BONUS	=	fdf_bonus
 
 #Compiling variables
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g #-fsanitize=address
 
 #Directories
-LIBDIR		=	libft
-SRCDIR		=	src
-INCDIR		=	inc
-OBJDIR		=	obj
+LIBDIR			=	libft
+SRCDIR			=	src
+INCDIR			=	inc
+OBJDIR			=	obj
+SRCDIR_BONUS	=	bonus
 
 #Library names
 LIBFT		=	$(LIBDIR)/libft.a
 
 #.h files name
 INC			=	$(INCDIR)/fdf.h
+INC_BONUS	=	$(INCDIR)/fdf_bonus.h
 
 #Command lines
 RM			=	rm -rf
@@ -41,10 +44,9 @@ SRC			= 	fdf.c \
 				math.c \
 				utils.c \
 				free_utils.c \
-				hook_loop.c \
 				misc_utils.c
 
-SRC_BONUS		= 	fdf_bonus.c \
+SRC_BONUS	= 	fdf_bonus.c \
 				load_map_bonus.c \
 				hooks_bonus.c \
 				math_bonus.c \
@@ -53,7 +55,7 @@ SRC_BONUS		= 	fdf_bonus.c \
 				hook_loop_bonus.c \
 				misc_utils_bonus.c
 
-VPATH		=	$(SRCDIR)
+VPATH		=	$(SRCDIR) $(SRCDIR_BONUS)
 
 #Object files
 OBJ			=	$(addprefix $(OBJDIR)/,$(SRC:%.c=%.o))
@@ -65,7 +67,7 @@ MLXDIR		=	MLX42
 MLX			=	$(MLXDIR)/build/libmlx42.a
 MLXINC		=	$(MLXDIR)/include
 
-all:  libmlx $(NAME) #deps
+all: deps libmlx $(NAME) 
 
 $(NAME):	$(OBJDIR) $(OBJ)
 	make -C $(LIBDIR)
@@ -77,7 +79,7 @@ $(OBJDIR)/%.o: %.c $(INC)
 $(OBJDIR):
 	$(MK) $(OBJDIR)
 
-# deps:
+deps:
 	@if [ ! -f /Users/$(USER)/.brew/bin/brew ]; then \
 		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 	fi
@@ -93,7 +95,14 @@ libmlx:
 		cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4; \
 	fi
 
-bonus:
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS):  $(OBJDIR) $(OBJ_BONUS)
+	make -C $(LIBDIR)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ_BONUS) $(LIBFT) $(MLX) -o $(NAME_BONUS)
+
+$(OBJDIR)/%.o: %.c $(INC_BONUS)
+	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
 	
 clean:
 	$(RM) $(OBJDIR)
@@ -101,9 +110,9 @@ clean:
 	make -C $(LIBDIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_BONUS)
 	make -C $(LIBDIR) fclean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all clean fclean re libmlx bonus

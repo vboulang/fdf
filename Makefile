@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/06 15:39:50 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/08 12:00:01 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ OBJ			=	$(addprefix $(OBJDIR)/,$(SRC:%.c=%.o))
 OBJ_BONUS	=	$(addprefix $(OBJDIR)/,$(SRC_BONUS:%.c=%.o))
 
 #MLX
-MLXFLAGS	=	-framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib/" #Place line if brew42 or not 42
+MLXFLAGS	=	-framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -pthread -lm -L$(shell brew --prefix glfw)/lib
 MLXDIR		=	MLX42
 MLX			=	$(MLXDIR)/build/libmlx42.a
 MLXINC		=	$(MLXDIR)/include
@@ -71,7 +71,7 @@ all: deps libmlx $(NAME)
 
 $(NAME):	$(OBJDIR) $(OBJ)
 	make -C $(LIBDIR)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(BREWFLAG) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 
 $(OBJDIR)/%.o: %.c $(INC)
 	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
@@ -89,7 +89,7 @@ deps:
 	@if ! brew list | grep -q "glfw"; then \
 		brew install glfw; \
 	fi
-	
+
 libmlx:
 	@if [ ! -d "MLX42/build" ]; then \
 		cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4; \
@@ -99,11 +99,11 @@ bonus: deps libmlx $(NAME_BONUS)
 
 $(NAME_BONUS):  $(OBJDIR) $(OBJ_BONUS)
 	make -C $(LIBDIR)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ_BONUS) $(LIBFT) $(MLX) -o $(NAME_BONUS)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(BREWFLAG) $(OBJ_BONUS) $(LIBFT) $(MLX) -o $(NAME_BONUS)
 
 $(OBJDIR)/%.o: %.c $(INC_BONUS)
 	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
-	
+
 clean:
 	$(RM) $(OBJDIR)
 	$(RM) $(MLXDIR)/build

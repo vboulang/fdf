@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/08 12:00:01 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/14 18:50:29 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ $(OBJDIR):
 
 deps:
 	@if [ ! -f /Users/$(USER)/.brew/bin/brew ]; then \
-		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+		yes | -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | zsh)"; \
 	fi
 	@if ! brew list | grep -q "cmake"; then \
 		brew install cmake; \

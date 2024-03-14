@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:18:15 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/06 15:28:32 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:42:44 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
+# include <stdlib.h>
 # include <math.h>
 # include "../libft/inc/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
